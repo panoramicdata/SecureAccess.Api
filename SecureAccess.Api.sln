@@ -9,7 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		CustomWords.dic = CustomWords.dic
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureAccess.Api.Test", "SecureAccess.Api.Test\SecureAccess.Api.Test.csproj", "{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +24,10 @@ Global
 		{D5BC0F69-2D0F-4235-9E28-DE25E00DF22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5BC0F69-2D0F-4235-9E28-DE25E00DF22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5BC0F69-2D0F-4235-9E28-DE25E00DF22A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,9 +6,9 @@ namespace SecureAccess.Api.Interfaces;
 public interface IAuth
 {
 	/// <summary>
-	/// Creates an authorization token for the Cisco Secure Access API.
+	/// Creates an authorization token using Basic Authentication.
 	/// </summary>
-	/// <param name="request">The authentication request containing the grant type.</param>
+	/// <param name="authorization">Basic Authentication header value.</param>
 	/// <returns>
 	/// An <see cref="ApiResponse{T}"/> containing the authorization token if successful.
 	/// </returns>
@@ -19,5 +19,7 @@ public interface IAuth
 	/// <response code="404">Not Found - The requested resource does not exist.</response>
 	/// <response code="500">Internal Server Error - An unexpected error occurred on the server.</response>
 	[Post("/token")]
-	Task<ApiResponse<AuthResponse>> GetAuthToken([Body] AuthRequest request);
+	[Headers("Content-Type: application/x-www-form-urlencoded")]
+	Task<ApiResponse<AuthResponse>> GetAuthToken(
+		[Header("Authorization")] string authorization);
 }
