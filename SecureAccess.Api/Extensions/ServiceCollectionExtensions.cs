@@ -1,29 +1,22 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
 using Refit;
 using SecureAccess.Api.Authentication;
 using SecureAccess.Api.Interfaces;
-using SecureAccess.Api.Services;
+using System.Net;
 
 namespace SecureAccess.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+	private const int HttpStatusCode_TooManyRequests = 429;
+
 	public static IServiceCollection AddSecureAccessApi(this IServiceCollection services, IConfiguration configuration)
 	{
 		_ = services.AddHttpClient();
-
-		// Register OAuth2Service with configuration
-		_ = services.AddSingleton(provider =>
-				new OAuth2Service(
-					provider.GetRequiredService<IAuth>(),
-					configuration,
-					provider.GetRequiredService<ILogger<OAuth2Service>>()
-				));
 
 		_ = services.AddSingleton<SecureAccessClient>();
 
@@ -50,6 +43,6 @@ public static class ServiceCollectionExtensions
 	private static AsyncRetryPolicy<HttpResponseMessage> GetRetryPolicy()
 		=> HttpPolicyExtensions
 			.HandleTransientHttpError()
-			.OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.TooManyRequests) // Handle rate limits
+			.OrResult(msg => msg.StatusCode == (HttpStatusCode)HttpStatusCode_TooManyRequests) // Handle rate limits
 			.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 }

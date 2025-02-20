@@ -5,10 +5,10 @@ namespace SecureAccess.Api.Data;
 public class AuthResponse
 {
 	[JsonPropertyName("token_type")]
-	public required string TokenType { get; set; }
+	public string TokenType { get; set; } = string.Empty;
 
 	[JsonPropertyName("access_token")]
-	public required string AccessToken { get; set; }
+	public string AccessToken { get; set; } = string.Empty;
 
 	[JsonPropertyName("expires_in")]
 	public int ExpiresIn { get; set; }

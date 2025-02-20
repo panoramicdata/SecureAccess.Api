@@ -3,8 +3,6 @@ using SecureAccess.Api.Data;
 
 namespace SecureAccess.Api.Interfaces;
 
-// TODO - I'm unable to add an API key with the "admin.apikeys:*" scope, so I can't test the ApiKey endpoint
-
 /// <summary>
 /// Interface for managing API keys in Cisco Secure Access.
 /// </summary>

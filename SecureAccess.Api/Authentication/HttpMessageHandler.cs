@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 
 namespace SecureAccess.Api.Authentication;
-public class AuthenticationHandler(OAuth2Service authService) : DelegatingHandler
+internal class AuthenticationHandler(OAuth2Service authService) : DelegatingHandler
 {
 	protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
 	{

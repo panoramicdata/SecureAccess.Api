@@ -1,54 +1,64 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using SecureAccess.Api.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using SecureAccess.Api.Data;
+using SecureAccess.Api.Exceptions;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace SecureAccess.Api.Services;
 
-public class OAuth2Service(
-	IAuth authApi,
-	IConfiguration configuration,
-	ILogger<OAuth2Service> logger)
+internal class OAuth2Service(
+	SecureClientOptions clientOptions,
+	HttpClient httpClient,
+	ILogger logger) : IOAuth2Service
 {
-	private readonly IAuth _authApi = authApi;
-	private readonly ILogger<OAuth2Service> _logger = logger;
-	private readonly string _username = configuration["SecureAccess:Username"] ?? throw new InvalidOperationException("SecureAccess:Username must be set in configuration.");
-	private readonly string _password = configuration["SecureAccess:Password"] ?? throw new InvalidOperationException("SecureAccess:Password must be set in configuration.");
-	private string _accessToken;
+	private readonly SecureClientOptions _clientOptions = clientOptions;
+	private readonly HttpClient _httpClient = httpClient;
+	private readonly ILogger _logger = logger;
+	private string? _accessToken;
 	private DateTime _tokenExpiry;
 
 	/// <summary>
 	/// Retrieves a valid access token, refreshing if necessary.
 	/// </summary>
 	public async Task<string> GetAccessTokenAsync()
-		=> IsValidAccessTokenPresent()
+		=> _accessToken != null && DateTime.UtcNow < _tokenExpiry
 			? _accessToken
 			: await RefreshAccessTokenAsync();
-	private bool IsValidAccessTokenPresent() => _accessToken != null && DateTime.UtcNow < _tokenExpiry;
 
 	private async Task<string> RefreshAccessTokenAsync()
 	{
 		try
 		{
 			// Generate Basic Authentication header value
-			var authString = $"{_username}:{_password}";
-			var authBytes = Encoding.UTF8.GetBytes(authString);
-			var authHeader = "Basic " + Convert.ToBase64String(authBytes);
+			var authBytes = Encoding.UTF8.GetBytes($"{_clientOptions.ApiKey}:{_clientOptions.ApiSecret}");
+			var body = new Dictionary<string, string>
+			{
+				{ "grant_type", "client_credentials" }
+			};
 
-			var response = await _authApi.GetAuthToken(authHeader);
-
+			// using the auth header to get the access token
+			_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
+			var response = await _httpClient.PostAsJsonAsync("auth/v2/token", body);
 
 			if (response.IsSuccessStatusCode)
 			{
-				_accessToken = response.Content.AccessToken;
-				_tokenExpiry = DateTime.UtcNow.AddSeconds(response.Content.ExpiresIn - 30); // Buffer time before expiry
+				var authResponse = await response.Content.ReadFromJsonAsync<AuthResponse>();
 
-				_logger.LogInformation("New access token obtained.");
-				return _accessToken;
+				if (authResponse != null)
+				{
+					_accessToken = authResponse.AccessToken;
+					_tokenExpiry = DateTime.UtcNow.AddSeconds(authResponse.ExpiresIn - 30); // Buffer time before expiry
+					_logger.LogInformation("New access token obtained.");
+
+					return _accessToken;
+				}
 			}
 
-			_logger.LogError($"Failed to retrieve access token: {response.StatusCode}");
-			throw new Exception("Authentication failed");
+			var content = await response.Content.ReadAsStringAsync();
+
+			_logger.LogError("Failed to retrieve access token: {StatusCode} : {ResponseContent}", response.StatusCode, content);
+			throw new SecureAccessApiException($"Authentication failed {response.StatusCode} : {content}");
 		}
 		catch (Exception ex)
 		{

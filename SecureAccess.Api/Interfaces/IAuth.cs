@@ -20,6 +20,7 @@ public interface IAuth
 	/// <response code="500">Internal Server Error - An unexpected error occurred on the server.</response>
 	[Post("/token")]
 	[Headers("Content-Type: application/x-www-form-urlencoded")]
+	// TODO - set grant_type client_credentials
 	Task<ApiResponse<AuthResponse>> GetAuthToken(
 		[Header("Authorization")] string authorization);
 }

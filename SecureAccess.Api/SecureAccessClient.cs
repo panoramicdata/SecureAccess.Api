@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Refit;
 using SecureAccess.Api.Interfaces;
+using SecureAccess.Api.Sections;
 using SecureAccess.Api.Services;
+using System.Net.Http.Headers;
 
 namespace SecureAccess.Api;
 
@@ -15,38 +17,43 @@ public class SecureAccessClient
 	private readonly IHttpClientFactory _httpClientFactory;
 	private readonly IServiceProvider _serviceProvider;
 	private readonly OAuth2Service _authService;
-	private readonly string _baseUrl = "https://api.sse.cisco.com/admin/v2";
+	private readonly SecureClientOptions _clientOptions;
 
 	/// <summary>
 	/// API client for managing API keys.
 	/// </summary>
 	public IApiKeyAdmin ApiKeyAdmin { get; }
+	public DeploymentsSection Deployments { get; } = new();
 
 	/// <summary>
 	/// Initializes SecureAccessClient with required dependencies.
 	/// </summary>
-	public SecureAccessClient(IServiceProvider serviceProvider)
+	public SecureAccessClient(
+		SecureClientOptions clientOptions,
+		ILogger<SecureAccessClient> logger)
 	{
-		_serviceProvider = serviceProvider;
 		_httpClientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
 		_logger = _serviceProvider.GetRequiredService<ILogger<SecureAccessClient>>();
-		_authService = _serviceProvider.GetRequiredService<OAuth2Service>();
+		_authService = new OAuth2Service(clientOptions, _httpClientFactory.CreateClient(), logger);
 
-		var httpClient = CreateAuthenticatedHttpClient();
-		ApiKeyAdmin = RestService.For<IApiKeyAdmin>(httpClient);
+		Deployments = new()
+		{
+			RoamingComputers = RefitFor(Deployments.RoamingComputers)
+		};
+		_clientOptions = clientOptions;
 	}
 
 	/// <summary>
 	/// Creates an authenticated HttpClient with automatic token injection.
 	/// </summary>
-	private HttpClient CreateAuthenticatedHttpClient()
+	private HttpClient GetAuthenticatedHttpClient()
 	{
 		var client = _httpClientFactory.CreateClient();
-		client.BaseAddress = new Uri(_baseUrl);
-
-		client.DefaultRequestHeaders.Authorization =
-			new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authService.GetAccessTokenAsync().Result);
+		client.BaseAddress = new Uri(_clientOptions.ApiUrl);
+		client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authService.GetAccessTokenAsync().Result);
 
 		return client;
 	}
+
+	private T RefitFor<T>(T _) => RestService.For<T>(GetAuthenticatedHttpClient());
 }
