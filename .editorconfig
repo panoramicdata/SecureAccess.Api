@@ -1,7 +1,5 @@
 [*]
-# VSSPELL: Spell checker settings from Meraki.Api.sln.vsspell
-vsspell_section_id = 380de64fe2c54b63871cbe33f596ddb9
-vsspell_ignored_words_380de64fe2c54b63871cbe33f596ddb9 = File:Meraki.Api.sln.vsspell.dic
+# VSSPELL: Spell checker settings from SecureAccess.Api.sln.vsspell
 
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
@@ -22,6 +20,9 @@ dotnet_style_explicit_tuple_names = true:warning
 dotnet_style_prefer_inferred_tuple_names = true:warning
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:warning
 dotnet_style_prefer_compound_assignment = true:warning
+vsspell_section_id = 380de64fe2c54b63871cbe33f596ddb9
+vsspell_dictionary_languages_380de64fe2c54b63871cbe33f596ddb9 = inherited
+vsspell_ignored_words_380de64fe2c54b63871cbe33f596ddb9 = File:SecureAccess.Api.sln.vsspell.dic
 
 # C# files
 [*.cs]
