@@ -2,7 +2,7 @@
 
 namespace SecureAccess.Api.Data;
 
-public enum SwqStatus
+public enum SwgStatus
 {
 	Unknown = 0,
 
