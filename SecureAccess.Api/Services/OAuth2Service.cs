@@ -8,11 +8,11 @@ using System.Text;
 namespace SecureAccess.Api.Services;
 
 internal class OAuth2Service(
-	SecureClientOptions clientOptions,
+	SecureAccessClientOptions clientOptions,
 	HttpClient httpClient,
 	ILogger logger) : IOAuth2Service
 {
-	private readonly SecureClientOptions _clientOptions = clientOptions;
+	private readonly SecureAccessClientOptions _clientOptions = clientOptions;
 	private readonly HttpClient _httpClient = httpClient;
 	private readonly ILogger _logger = logger;
 	private string? _accessToken;

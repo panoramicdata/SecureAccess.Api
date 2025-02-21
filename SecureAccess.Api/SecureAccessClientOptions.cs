@@ -3,7 +3,7 @@
 /// <summary>
 /// Secure Access Client Options
 /// </summary>
-public class SecureClientOptions
+public class SecureAccessClientOptions
 {
 	/// <summary>
 	/// The API URL

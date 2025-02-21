@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Refit;
-using SecureAccess.Api.Interfaces;
 using SecureAccess.Api.Sections;
 using SecureAccess.Api.Services;
 using System.Net.Http.Headers;
@@ -13,34 +11,35 @@ namespace SecureAccess.Api;
 /// </summary>
 public class SecureAccessClient
 {
-	private readonly ILogger<SecureAccessClient> _logger;
 	private readonly IHttpClientFactory _httpClientFactory;
-	private readonly IServiceProvider _serviceProvider;
 	private readonly OAuth2Service _authService;
-	private readonly SecureClientOptions _clientOptions;
+	private readonly SecureAccessClientOptions _clientOptions;
 
 	/// <summary>
 	/// API client for managing API keys.
 	/// </summary>
-	public IApiKeyAdmin ApiKeyAdmin { get; }
+	//public IApiKeyAdmin ApiKeyAdmin { get; }
 	public DeploymentsSection Deployments { get; } = new();
 
 	/// <summary>
 	/// Initializes SecureAccessClient with required dependencies.
 	/// </summary>
 	public SecureAccessClient(
-		SecureClientOptions clientOptions,
+		SecureAccessClientOptions clientOptions,
+		IHttpClientFactory httpClientFactory,
 		ILogger<SecureAccessClient> logger)
 	{
-		_httpClientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
-		_logger = _serviceProvider.GetRequiredService<ILogger<SecureAccessClient>>();
-		_authService = new OAuth2Service(clientOptions, _httpClientFactory.CreateClient(), logger);
+		_clientOptions = clientOptions;
+		_httpClientFactory = httpClientFactory;
+
+		var authHttpClient = httpClientFactory.CreateClient();
+		authHttpClient.BaseAddress = new(clientOptions.ApiUrl);
+		_authService = new OAuth2Service(clientOptions, authHttpClient, logger);
 
 		Deployments = new()
 		{
 			RoamingComputers = RefitFor(Deployments.RoamingComputers)
 		};
-		_clientOptions = clientOptions;
 	}
 
 	/// <summary>
@@ -55,5 +54,8 @@ public class SecureAccessClient
 		return client;
 	}
 
-	private T RefitFor<T>(T _) => RestService.For<T>(GetAuthenticatedHttpClient());
+	private T RefitFor<T>(T _)
+	{
+		return RestService.For<T>(GetAuthenticatedHttpClient());
+	}
 }

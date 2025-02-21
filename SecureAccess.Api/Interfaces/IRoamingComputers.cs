@@ -15,9 +15,9 @@ public interface IRoamingComputers
 	/// <returns>List of roaming computers.</returns>
 	[Get("/deployments/v2/roamingcomputers")]
 	Task<ApiResponse<List<RoamingComputer>>> ListRoamingComputers(
-		[Query] string? name,
-		[Query] string? status,
-		[Query] string? swgStatus,
+		[Query] string? name = null,
+		[Query] string? status = null,
+		[Query] string? swgStatus = null,
 		[Query] DateTime? lastSyncBefore = null,
 		[Query] DateTime? lastSyncAfter = null
 	);
