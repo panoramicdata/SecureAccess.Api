@@ -6,12 +6,18 @@ public enum SwgStatus
 {
 	Unknown = 0,
 
-	[EnumMember(Value = "connected")]
-	Connected,
+	[EnumMember(Value = "Off")]
+	Off,
 
-	[EnumMember(Value = "disconnected")]
-	Disconnected,
+	[EnumMember(Value = "NA")]
+	NA,
 
-	[EnumMember(Value = "warning")]
-	Warning
+	[EnumMember(Value = "Protected")]
+	Protected,
+
+	[EnumMember(Value = "Unprotected")]
+	Unprotected,
+
+	[EnumMember(Value = "Disabled")]
+	Disabled
 }
