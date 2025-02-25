@@ -5,7 +5,7 @@ namespace SecureAccess.Api.Data;
 public class ApiKeyListResponse
 {
 	[JsonPropertyName("message")]
-	public string Message { get; set; }
+	public string Message { get; set; } = string.Empty;
 
 	[JsonPropertyName("offset")]
 	public int Offset { get; set; }
@@ -17,5 +17,5 @@ public class ApiKeyListResponse
 	public int Total { get; set; }
 
 	[JsonPropertyName("keys")]
-	public List<ApiKey> Keys { get; set; }
+	public List<ApiKey> Keys { get; set; } = [];
 }

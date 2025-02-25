@@ -5,8 +5,8 @@ namespace SecureAccess.Api.Data;
 public class ApiKeyResponse
 {
 	[JsonPropertyName("message")]
-	public string Message { get; set; }
+	public string Message { get; set; } = string.Empty;
 
 	[JsonPropertyName("key")]
-	public ApiKey Key { get; set; }
+	public ApiKey? Key { get; set; }
 }
