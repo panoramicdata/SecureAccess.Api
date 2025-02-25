@@ -54,8 +54,5 @@ public class SecureAccessClient
 		return client;
 	}
 
-	private T RefitFor<T>(T _)
-	{
-		return RestService.For<T>(GetAuthenticatedHttpClient());
-	}
+	private T RefitFor<T>(T _) => RestService.For<T>(GetAuthenticatedHttpClient());
 }
