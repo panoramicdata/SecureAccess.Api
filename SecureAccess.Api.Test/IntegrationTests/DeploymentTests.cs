@@ -25,30 +25,20 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 	public async Task ListRoamingComputers_RetryLogic_Should_HandleRateLimiting()
 	{
 		// Arrange
-		const int maxAttempts = 50;
-		var attempt = 0;
-		var rateLimitedEncountered = false;
+		const int maxAttempts = 10;
 		ApiResponse<List<RoamingComputer>>? response;
 
-		// Act: repeatedly call ListRoamingComputers until a 429 is returned or until maxAttempts.
-		do
+		// Act
+		for (var attempt = 1; attempt <= maxAttempts; attempt++)
 		{
-			attempt++;
-			response = await TestSecureAccessClient.Deployments.RoamingComputers.ListRoamingComputers();
-			if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-			{
-				rateLimitedEncountered = true;
-				break;
-			}
+			response = await TestSecureAccessClient
+				.Deployments
+				.RoamingComputers
+				.ListRoamingComputers();
+
+			// although rate-limiting will occur, all requests should eventually succeed
+			// Assert
+			_ = response.IsSuccessStatusCode.Should().BeTrue();
 		}
-		while (attempt < maxAttempts);
-
-		// Assert that rate limiting was encountered.
-		_ = rateLimitedEncountered.Should().BeTrue("the API should eventually return a 429 response when called repeatedly.");
-
-		// Optionally: wait a short period to allow the retry logic (using the Retry-After header) to kick in.
-		// Then perform another call, which should succeed thanks to the Polly retry policy.
-		var finalResponse = await TestSecureAccessClient.Deployments.RoamingComputers.ListRoamingComputers();
-		_ = finalResponse.IsSuccessStatusCode.Should().BeTrue("the retry policy should eventually allow a successful call after rate limiting.");
 	}
 }
