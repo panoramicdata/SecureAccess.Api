@@ -7,16 +7,24 @@ using System.Text;
 
 namespace SecureAccess.Api.Services;
 
-internal class OAuth2Service(
-	SecureAccessClientOptions clientOptions,
-	HttpClient httpClient,
-	ILogger logger) : IOAuth2Service
+internal class OAuth2Service : IOAuth2Service
 {
-	private readonly SecureAccessClientOptions _clientOptions = clientOptions;
-	private readonly HttpClient _httpClient = httpClient;
-	private readonly ILogger _logger = logger;
+	private readonly SecureAccessClientOptions _clientOptions;
+	private readonly HttpClient _httpClient;
+	private readonly ILogger _logger;
 	private string? _accessToken;
 	private DateTime _tokenExpiry;
+
+	public OAuth2Service(
+		SecureAccessClientOptions clientOptions,
+		IHttpClientFactory httpClientFactory,
+		ILogger logger)
+	{
+		_clientOptions = clientOptions;
+		_httpClient = httpClientFactory.CreateClient("OAuth2Client");
+		_httpClient.BaseAddress = new Uri(clientOptions.ApiUrl);
+		_logger = logger;
+	}
 
 	/// <summary>
 	/// Retrieves a valid access token, refreshing if necessary.

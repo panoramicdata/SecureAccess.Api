@@ -29,4 +29,9 @@ public class SecureAccessClientOptions
 	/// The Key Admin API Secret
 	/// </summary>
 	public string? KeyAdminApiSecret { get; set; }
+
+	/// <summary>
+	/// The Maximum Retry Count of the Http client
+	/// </summary>
+	public int RetryCount { get; set; } = Constants.HttpClientMaxRetryCount;
 }
