@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureAccess.Api.Test", "SecureAccess.Api.Test\SecureAccess.Api.Test.csproj", "{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureAccess.Api.Example", "SecureAccess.Api.Example\SecureAccess.Api.Example.csproj", "{B227A911-D88C-411D-A408-7AEAA8B760EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,8 +30,15 @@ Global
 		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D4ABFAE-EFC4-4C44-8B8B-F73D2DB99E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B227A911-D88C-411D-A408-7AEAA8B760EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B227A911-D88C-411D-A408-7AEAA8B760EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B227A911-D88C-411D-A408-7AEAA8B760EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B227A911-D88C-411D-A408-7AEAA8B760EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61804D23-A80D-401B-B42F-E4194D132BF2}
 	EndGlobalSection
 EndGlobal

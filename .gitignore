@@ -28,4 +28,7 @@ obj/
 
 # Refit Client
 clientbin/
+
+# custom
 /SecureAccess.Api.Test/appsettings.json
+/SecureAccess.Api.Example/appsettings.json
