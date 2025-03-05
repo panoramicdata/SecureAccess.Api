@@ -63,21 +63,21 @@ class Program
 		ILogger logger,
 		SecureAccessClient client,
 		string operationName,
-		int attempt = 1)
+		int callCount = 1)
 	{
-		logger.LogInformation("{OperationName} - Attempt {Attempt}: Making API call...", operationName, attempt);
+		logger.LogInformation("{OperationName} - Call {CallCount}: Making API call...", operationName, callCount);
 
 		var response = await client.Deployments.RoamingComputers.ListRoamingComputers();
 
 		if (response.IsSuccessStatusCode)
 		{
-			logger.LogInformation("{OperationName} - Attempt {Attempt}: {RoamingComputersCount} results have been returned.",
-				operationName, attempt, response.Content?.Count);
+			logger.LogInformation("{OperationName} - Call {CallCount}: {RoamingComputersCount} results have been returned.",
+				operationName, callCount, response.Content?.Count);
 		}
 		else
 		{
-			logger.LogWarning("{OperationName} - Attempt {Attempt}: API call failed with status {StatusCode}.",
-				operationName, attempt, response.StatusCode);
+			logger.LogWarning("{OperationName} - Call {CallCount}: API call failed with status {StatusCode}.",
+				operationName, callCount, response.StatusCode);
 		}
 
 		return response;
@@ -90,15 +90,15 @@ class Program
 		ILogger logger,
 		SecureAccessClient client,
 		string operationName,
-		int maxAttempts)
+		int totalCalls)
 	{
-		logger.LogInformation("{OperationName}: Starting {MaxAttempts} attempts...", operationName, maxAttempts);
+		logger.LogInformation("{OperationName}: Starting {MaxCalls} calls...", operationName, totalCalls);
 
-		for (var attempt = 1; attempt <= maxAttempts; attempt++)
+		for (var callCount = 1; callCount <= totalCalls; callCount++)
 		{
-			_ = await PerformSingleCallAsync(logger, client, operationName, attempt);
+			_ = await PerformSingleCallAsync(logger, client, operationName, callCount);
 		}
 
-		logger.LogInformation("{OperationName}: Completed {MaxAttempts} attempts.", operationName, maxAttempts);
+		logger.LogInformation("{OperationName}: Completed {MaxCalls} calls.", operationName, totalCalls);
 	}
 }
