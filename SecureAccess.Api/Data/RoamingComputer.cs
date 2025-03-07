@@ -6,6 +6,7 @@ public class RoamingComputer
 	[JsonPropertyName("originId")]
 	public long OriginId { get; set; }
 
+
 	[JsonPropertyName("deviceId")]
 	public string DeviceId { get; set; } = string.Empty;
 

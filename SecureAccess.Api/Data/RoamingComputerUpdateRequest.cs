@@ -6,7 +6,7 @@ namespace SecureAccess.Api.Data;
 /// <summary>
 /// Request model for updating a roaming computer's name.
 /// </summary>
-public class UpdateRoamingComputerRequest
+public class RoamingComputerUpdateRequest
 {
 	[JsonPropertyName("name")]
 	[Required]

@@ -39,7 +39,7 @@ public interface IRoamingComputers
 	[Put("/deployments/v2/roamingcomputers/{deviceId}")]
 	Task<ApiResponse<RoamingComputer>> UpdateRoamingComputer(
 		[AliasAs("deviceId")] string deviceId,
-		[Body] UpdateRoamingComputerRequest updateRequest
+		[Body] RoamingComputerUpdateRequest updateRequest
 	);
 
 	/// <summary>
@@ -48,5 +48,5 @@ public interface IRoamingComputers
 	/// <param name="deviceId">The unique device ID.</param>
 	/// <returns>No content response.</returns>
 	[Delete("/deployments/v2/roamingcomputers/{deviceId}")]
-	Task<ApiResponse<object>> DeleteRoamingComputer([AliasAs("deviceId")] string deviceId);
+	Task DeleteRoamingComputer([AliasAs("deviceId")] string deviceId);
 }
