@@ -22,6 +22,7 @@ public class SecureAccessClient
 		Deployments = new()
 		{
 			NetworkTunnelGroups = RefitFor(Deployments.NetworkTunnelGroups),
+			ConnectorGroups = RefitFor(Deployments.ConnectorGroups),
 			RoamingComputers = RefitFor(Deployments.RoamingComputers)
 		};
 	}

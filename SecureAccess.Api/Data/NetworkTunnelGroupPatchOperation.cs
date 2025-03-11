@@ -2,9 +2,9 @@
 
 public class NetworkTunnelGroupPatchOperation
 {
-	public PatchOperationType Op { get; set; }
+	public PatchOperationType Op { get; set; } = PatchOperationType.Replace;
 
 	public NetworkTunnelGroupPatchOperationPath Path { get; set; }
 
-	public object Value { get; set; } = null!;
+	public object Value { get; set; } = string.Empty;
 }
