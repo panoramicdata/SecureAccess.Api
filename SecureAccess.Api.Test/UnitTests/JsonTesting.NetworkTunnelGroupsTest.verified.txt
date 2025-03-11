@@ -1,0 +1,40 @@
+﻿{
+  Data: [
+    {
+      Id: 4561237892,
+      Name: New York Branch Tunnels,
+      OrganizationId: 123456,
+      DeviceType: ASA,
+      Region: us-east-1,
+      Status: warning,
+      Hubs: [
+        {
+          Id: 987654321,
+          IsPrimary: true,
+          Datacenter: {
+            Name: us-east-1
+          },
+          AuthId: newyorkbranchtunnels123@123456-987654321.sse.cisco.com
+        },
+        {
+          Id: 147852369,
+          IsPrimary: false,
+          Datacenter: {
+            Name: us-central-1
+          },
+          AuthId: newyorkbranchtunnels123@123456-147852369.sse.cisco.com
+        }
+      ],
+      Routing: {
+        Data: {
+          ValueKind: Object
+        }
+      },
+      CreatedAt: DateTime_1,
+      ModifiedAt: DateTime_2
+    }
+  ],
+  Offset: 1,
+  Limit: 10,
+  Total: 1
+}

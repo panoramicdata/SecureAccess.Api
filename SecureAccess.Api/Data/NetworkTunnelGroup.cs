@@ -8,7 +8,7 @@ public class NetworkTunnelGroup
 	/// The ID of the Network Tunnel Group.
 	/// </summary>
 	[ApiKey]
-	public int Id { get; set; }
+	public long Id { get; set; }
 
 	/// <summary>
 	/// The name of the Network Tunnel Group.
@@ -21,7 +21,7 @@ public class NetworkTunnelGroup
 	/// The ID of the Network Tunnel Group
 	/// </summary>
 	[ApiAccess(ApiAccess.Read)]
-	public int OrganizationId { get; set; }
+	public long OrganizationId { get; set; }
 
 	/// <summary>
 	/// The type of device that establishes the network tunnel. The default value is other.
