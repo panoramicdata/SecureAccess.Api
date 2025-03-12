@@ -18,7 +18,7 @@ public interface IConnectorGroups
 	/// <returns></returns>
 	[ApiOperationId("listConnectorGroups")]
 	[Get("/connectorGroups")]
-	Task<ConnectorGroupList> ListConnectorGroups(
+	Task<PagedResponse<ConnectorGroup>> ListConnectorGroups(
 	[Query] bool? includeProvisioningKey,
 	[Query] string? filters,
 	[Query] int? offset,

@@ -4,7 +4,7 @@ using SecureAccess.Api.Sections;
 
 namespace SecureAccess.Api;
 
-public class SecureAccessClient
+public partial class SecureAccessClient
 {
 	private readonly HttpClient _httpClient;
 

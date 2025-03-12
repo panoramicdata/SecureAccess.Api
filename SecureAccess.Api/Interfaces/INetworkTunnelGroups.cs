@@ -18,27 +18,28 @@ public interface INetworkTunnelGroups
 	/// <param name="includeStatuses">Specify whether to include the IPsec tunnel status fields (status and tunnelsStatus) for each hub. example = true, default = false</param>
 	/// <returns></returns>
 	[ApiOperationId("listNetworkTunnelGroups")]
-	[Get("/networktunnelgroups")]
-	Task<NetworkTunnelGroupsList> ListNetworkTunnelGroups(
-	[Query] string? filters,
-	[Query] int? offset,
-	[Query] int? limit,
-	[Query] string? sortBy,
-	[Query] string? sortOrder,
-	[Query] bool? includeStatuses);
+	[Get("/deployments/v2/networktunnelgroups")]
+	Task<PagedResponse<NetworkTunnelGroup>> ListNetworkTunnelGroupsAsync(
+	[Query] string? filters = null,
+	[Query] int? offset = null,
+	[Query] int? limit = null,
+	[Query] string? sortBy = null,
+	[Query] string? sortOrder = null,
+	[Query] bool? includeStatuses = null,
+	CancellationToken cancellationToken = default);
 
 	[ApiOperationId("addNetworkTunnelGroup")]
-	[Post("/networktunnelgroups")]
-	Task<NetworkTunnelGroupResponse> AddNetworkTunnelGroup(
+	[Post("/deployments/v2/networktunnelgroups")]
+	Task<NetworkTunnelGroupResponse> AddNetworkTunnelGroupAsync(
 		[Body] NetworkTunnelGroupCreateRequest request);
 
 	[ApiOperationId("getNetworkTunnelGroup")]
-	[Get("/networktunnelgroups/{id}")]
-	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroup(int id);
+	[Get("/deployments/v2/networktunnelgroups/{id}")]
+	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroupAsync(int id);
 
 	[ApiOperationId("patchNetworkTunnelGroup")]
-	[Patch("/networktunnelgroups/{id}")]
-	Task<NetworkTunnelGroupResponse> PatchNetworkTunnelGroup(
+	[Patch("/deployments/v2/networktunnelgroups/{id}")]
+	Task<NetworkTunnelGroupResponse> PatchNetworkTunnelGroupAsync(
 		int id, [Body] List<NetworkTunnelGroupPatchOperation> operations);
 
 	[ApiOperationId("deleteNetworkTunnelGroup")]

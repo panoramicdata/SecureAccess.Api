@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Refit;
 using SecureAccess.Api.Data;
+using SecureAccess.Api.Extensions;
 using Xunit.Abstractions;
 
 namespace SecureAccess.Api.Test.IntegrationTests;
@@ -40,5 +41,38 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 			// Assert
 			_ = response.IsSuccessStatusCode.Should().BeTrue();
 		}
+	}
+
+	[Fact]
+	public async Task ListNetworkTunnelGroups_ReturnsPagedResponse()
+	{
+		// Arrange
+		// Act
+		var response = await TestSecureAccessClient
+			.Deployments
+			.NetworkTunnelGroups
+			.ListNetworkTunnelGroupsAsync();
+
+		// Assert
+		_ = response.Should().NotBeNull();
+		_ = response.Should().BeOfType<PagedResponse<NetworkTunnelGroup>>();
+		_ = response.Data.Should().NotBeNullOrEmpty();
+		_ = response.Total.Should().BeGreaterThan(0);
+	}
+
+	[Fact]
+	public async Task ListNetworkTunnelGroupsAll_ReturnsListOfNetworkTunnelGroups()
+	{
+		// Arrange
+		// Act
+		var response = await TestSecureAccessClient
+			.Deployments
+			.NetworkTunnelGroups
+			.ListNetworkTunnelGroupsAllAsync();
+		// Assert
+		_ = response.Should().NotBeNull();
+		_ = response.Should().BeOfType<List<NetworkTunnelGroup>>();
+		_ = response.Should().NotBeNullOrEmpty();
+		_ = response.Count.Should().BeGreaterThan(0);
 	}
 }

@@ -1,5 +1,5 @@
 ﻿namespace SecureAccess.Api.Data;
 
-public class ConnectorGroupResponse
+public class ConnectorGroup
 {
 }
