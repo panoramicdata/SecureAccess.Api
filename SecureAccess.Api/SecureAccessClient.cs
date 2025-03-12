@@ -7,6 +7,7 @@ namespace SecureAccess.Api;
 public partial class SecureAccessClient
 {
 	private readonly HttpClient _httpClient;
+	private readonly RefitSettings _refitSettings;
 
 	public DeploymentsSection Deployments { get; } = new();
 
@@ -18,6 +19,10 @@ public partial class SecureAccessClient
 	{
 		_httpClient = httpClient;
 		_httpClient.BaseAddress = new Uri(clientOptions.ApiUrl);
+		_refitSettings = new RefitSettings
+		{
+			UrlParameterFormatter = new RefitUrlParameterFormatter()
+		};
 
 		Deployments = new()
 		{
@@ -27,5 +32,5 @@ public partial class SecureAccessClient
 		};
 	}
 
-	private T RefitFor<T>(T _) => RestService.For<T>(_httpClient);
+	private T RefitFor<T>(T _) => RestService.For<T>(_httpClient, _refitSettings);
 }

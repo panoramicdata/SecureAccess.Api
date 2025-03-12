@@ -51,7 +51,7 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 		var response = await TestSecureAccessClient
 			.Deployments
 			.NetworkTunnelGroups
-			.ListNetworkTunnelGroupsAsync();
+			.ListNetworkTunnelGroupsAsync(includeStatuses: true);
 
 		// Assert
 		_ = response.Should().NotBeNull();
@@ -68,7 +68,7 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 		var response = await TestSecureAccessClient
 			.Deployments
 			.NetworkTunnelGroups
-			.ListNetworkTunnelGroupsAllAsync();
+			.ListNetworkTunnelGroupsAllAsync(includeStatuses: true);
 		// Assert
 		_ = response.Should().NotBeNull();
 		_ = response.Should().BeOfType<List<NetworkTunnelGroup>>();
