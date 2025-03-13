@@ -21,7 +21,7 @@ public class JsonTesting : IDisposable
 		_server = WireMockServer.Start();
 
 		_server
-			.Given(Request.Create().WithPath("/networktunnelgroups").UsingGet())
+			.Given(Request.Create().WithPath("/deployments/v2/networktunnelgroups").UsingGet())
 			.RespondWith(
 				Response.Create()
 				.WithStatusCode(200)

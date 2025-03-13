@@ -18,40 +18,32 @@ public interface IConnectorGroups
 	/// <returns></returns>
 	[ApiOperationId("listConnectorGroups")]
 	[Get("/connectorGroups")]
-	Task<PagedResponse<ConnectorGroup>> ListConnectorGroups(
-	[Query] bool? includeProvisioningKey,
-	[Query] string? filters,
-	[Query] int? offset,
-	[Query] int? limit,
-	[Query] string? sortBy,
-	[Query] string? sortOrder);
+	Task<PagedResponse<ConnectorGroup>> ListConnectorGroupsAsync(
+		[Query] bool? includeProvisioningKey,
+		[Query] string? filters,
+		[Query] int? offset,
+		[Query] int? limit,
+		[Query] string? sortBy,
+		[Query] string? sortOrder,
+		CancellationToken cancellationToken = default);
 
-	//// Create Resource Connector Group
-	//// POST /connectorGroups
-	//[Post("/connectorGroups")]
-	//Task<ConnectorGroupResponse> CreateConnectorGroup([Body] ConnectorGroupReq connectorGroup);
+	[Post("/connectorGroups")]
+	Task<ConnectorGroup> CreateConnectorGroupAsync([Body] ConnectorGroupCreateUpdateRequest connectorGroup);
 
-	//// Get Resource Connector Group
-	//// GET /connectorGroups/{id}?includeProvisioningKey=...
-	//[Get("/connectorGroups/{id}")]
-	//Task<ConnectorGroupResponse> GetConnectorGroup(
-	//	int id,
-	//	[Query] bool includeProvisioningKey = false);
+	[Get("/connectorGroups/{id}")]
+	Task<ConnectorGroup> GetConnectorGroupAsync(
+		long id,
+		bool includeProvisioningKey = false,
+		CancellationToken cancellationToken = default);
 
-	//// Update Resource Connector Group (PUT)
-	//// PUT /connectorGroups/{id}
-	//[Put("/connectorGroups/{id}")]
-	//Task<ConnectorGroupResponse> UpdateConnectorGroup(int id, [Body] ConnectorGroupReq connectorGroup);
+	[Put("/connectorGroups/{id}")]
+	Task<ConnectorGroup> UpdateConnectorGroupAsync(long id, [Body] ConnectorGroupCreateUpdateRequest connectorGroup);
 
-	//// Patch Resource Connector Group
-	//// PATCH /connectorGroups/{id}
-	//[Patch("/connectorGroups/{id}")]
-	//Task<ConnectorGroupResponse> PatchConnectorGroup(int id, [Body] List<PatchOperation> patchOperations);
+	[Patch("/connectorGroups/{id}")]
+	Task<ConnectorGroup> PatchConnectorGroup(long id, [Body] List<PatchOperation> patchOperations);
 
-	//// Delete Resource Connector Group
-	//// DELETE /connectorGroups/{id}
-	//[Delete("/connectorGroups/{id}")]
-	//Task DeleteConnectorGroup(int id);
+	[Delete("/connectorGroups/{id}")]
+	Task DeleteConnectorGroup(long id);
 
 	//// Get Counts for Connector Groups
 	//// GET /connectorGroups/counts

@@ -20,12 +20,12 @@ public interface INetworkTunnelGroups
 	[ApiOperationId("listNetworkTunnelGroups")]
 	[Get("/deployments/v2/networktunnelgroups")]
 	Task<PagedResponse<NetworkTunnelGroup>> ListNetworkTunnelGroupsAsync(
-	[Query] string? filters = null,
-	[Query] int? offset = null,
-	[Query] int? limit = null,
-	[Query] string? sortBy = null,
-	[Query] string? sortOrder = null,
-	[Query] bool? includeStatuses = null,
+	string? filters = null,
+	int? offset = null,
+	int? limit = null,
+	string? sortBy = null,
+	string? sortOrder = null,
+	bool? includeStatuses = null,
 	CancellationToken cancellationToken = default);
 
 	[ApiOperationId("addNetworkTunnelGroup")]
@@ -35,12 +35,13 @@ public interface INetworkTunnelGroups
 
 	[ApiOperationId("getNetworkTunnelGroup")]
 	[Get("/deployments/v2/networktunnelgroups/{id}")]
-	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroupAsync(int id);
+	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroupAsync(long id);
 
 	[ApiOperationId("patchNetworkTunnelGroup")]
 	[Patch("/deployments/v2/networktunnelgroups/{id}")]
 	Task<NetworkTunnelGroupResponse> PatchNetworkTunnelGroupAsync(
-		int id, [Body] List<NetworkTunnelGroupPatchOperation> operations);
+		long id,
+		[Body] List<PatchOperation> operations);
 
 	[ApiOperationId("deleteNetworkTunnelGroup")]
 	[Delete("/networktunnelgroups/{id}")]
