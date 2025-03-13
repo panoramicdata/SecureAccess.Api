@@ -45,42 +45,6 @@ public interface IConnectorGroups
 	[Delete("/connectorGroups/{id}")]
 	Task DeleteConnectorGroup(long id);
 
-	//// Get Counts for Connector Groups
-	//// GET /connectorGroups/counts
 	//[Get("/connectorGroups/counts")]
 	//Task<ConnectorGroupCountsResponse> GetConnectorGroupCounts();
-
-	//// =============================
-	//// Connector (Agent) Endpoints
-	//// =============================
-
-	//// List Connectors
-	//// GET /connectorAgents?filters=...&offset=...&limit=...&sortBy=...&sortOrder=...
-	//[Get("/connectorAgents")]
-	//Task<ConnectorListRes> ListConnectors(
-	//	[Query] string filters = null,
-	//	[Query] int offset = 0,
-	//	[Query] int limit = 10,
-	//	[Query(Name = "sortBy")] string sortBy = "originIpAddress",
-	//	[Query] string sortOrder = "asc");
-
-	//// Get Connector
-	//// GET /connectorAgents/{id}
-	//[Get("/connectorAgents/{id}")]
-	//Task<ConnectorResponse> GetConnector(int id);
-
-	//// Patch Connector
-	//// PATCH /connectorAgents/{id}
-	//[Patch("/connectorAgents/{id}")]
-	//Task<ConnectorResponse> PatchConnector(int id, [Body] List<PatchOperation> patchOperations);
-
-	//// Delete Connector
-	//// DELETE /connectorAgents/{id}
-	//[Delete("/connectorAgents/{id}")]
-	//Task DeleteConnector(int id);
-
-	//// Get Counts for Connectors
-	//// GET /connectorAgents/counts
-	//[Get("/connectorAgents/counts")]
-	//Task<ConnectorCountsResponse> GetConnectorCounts();
 }
