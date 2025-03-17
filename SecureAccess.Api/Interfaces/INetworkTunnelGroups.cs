@@ -28,22 +28,50 @@ public interface INetworkTunnelGroups
 	bool? includeStatuses = null,
 	CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Create a Network Tunnel Group in the organization
+	/// </summary>
+	/// <param name="request">Create the Network Tunnel Group</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[ApiOperationId("addNetworkTunnelGroup")]
 	[Post("/deployments/v2/networktunnelgroups")]
 	Task<NetworkTunnelGroupResponse> AddNetworkTunnelGroupAsync(
-		[Body] NetworkTunnelGroupCreateRequest request);
+		[Body] NetworkTunnelGroupCreateRequest request,
+		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Get a Network Tunnel Group in the organization
+	/// </summary>
+	/// <param name="id">The ID of the Network Tunnel Group</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[ApiOperationId("getNetworkTunnelGroup")]
 	[Get("/deployments/v2/networktunnelgroups/{id}")]
-	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroupAsync(long id);
+	Task<NetworkTunnelGroupResponse> GetNetworkTunnelGroupAsync(long id, CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Update a Network Tunnel Group in the organization
+	/// </summary>
+	/// <param name="id">The ID of the Network Tunnel Group</param>
+	/// <param name="operations">The path of the property that needs to be updated.	Available paths are /name, /authIdPrefix, /passphrase, /region, and /routing</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[ApiOperationId("patchNetworkTunnelGroup")]
 	[Patch("/deployments/v2/networktunnelgroups/{id}")]
 	Task<NetworkTunnelGroupResponse> PatchNetworkTunnelGroupAsync(
 		long id,
-		[Body] List<PatchOperation> operations);
+		[Body] List<PatchOperation> operations,
+		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Delete a Network Tunnel Group in the organization
+	/// </summary>
+	/// <param name="id">The ID of the Network Tunnel Group</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[ApiOperationId("deleteNetworkTunnelGroup")]
 	[Delete("/networktunnelgroups/{id}")]
-	Task DeleteNetworkTunnelGroup(int id);
+	Task DeleteNetworkTunnelGroup(int id,
+		CancellationToken cancellationToken = default);
 }
