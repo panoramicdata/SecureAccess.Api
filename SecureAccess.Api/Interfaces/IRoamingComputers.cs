@@ -16,13 +16,13 @@ public interface IRoamingComputers
 	/// <returns>List of roaming computers.</returns>
 	[ApiOperationId("listRoamingComputers")]
 	[Get("/deployments/v2/roamingcomputers")]
-	Task<ApiResponse<List<RoamingComputer>>> ListRoamingComputers(
-		[Query] string? name = null,
-		[Query] string? status = null,
-		[Query] string? swgStatus = null,
-		[Query] DateTime? lastSyncBefore = null,
-		[Query] DateTime? lastSyncAfter = null
-	);
+	Task<PagedResponse<RoamingComputer>> ListRoamingComputersAsync(
+		string? name = null,
+		string? status = null,
+		string? swgStatus = null,
+		DateTime? lastSyncBefore = null,
+		DateTime? lastSyncAfter = null,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Get a specific roaming computer.
@@ -31,27 +31,37 @@ public interface IRoamingComputers
 	/// <returns>Roaming computer details.</returns>
 	[ApiOperationId("getRoamingComputer")]
 	[Get("/deployments/v2/roamingcomputers/{deviceId}")]
-	Task<ApiResponse<RoamingComputer>> GetRoamingComputer([AliasAs("deviceId")] string deviceId);
+	Task<RoamingComputer> GetRoamingComputerAsync(
+		string deviceId,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
-	/// Update the name of a roaming computer.
+	/// Update a roaming computer in the organization.
 	/// </summary>
 	/// <param name="deviceId">The unique device ID.</param>
 	/// <param name="updateRequest">Update request payload.</param>
 	/// <returns>Updated roaming computer details.</returns>
 	[ApiOperationId("updateRoamingComputer")]
 	[Put("/deployments/v2/roamingcomputers/{deviceId}")]
-	Task<ApiResponse<RoamingComputer>> UpdateRoamingComputer(
-		[AliasAs("deviceId")] string deviceId,
-		[Body] RoamingComputerUpdateRequest updateRequest
-	);
+	Task<RoamingComputer> UpdateRoamingComputerAsync(
+		string deviceId,
+		[Body] RoamingComputerUpdateRequest updateRequest,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
-	/// Delete a roaming computer.
+	/// Delete a roaming computer in the organization.
 	/// </summary>
 	/// <param name="deviceId">The unique device ID.</param>
 	/// <returns>No content response.</returns>
 	[ApiOperationId("deleteRoamingComputer")]
 	[Delete("/deployments/v2/roamingcomputers/{deviceId}")]
-	Task DeleteRoamingComputer([AliasAs("deviceId")] string deviceId);
+	Task DeleteRoamingComputerAsync(string deviceId, CancellationToken cancellationToken = default);
+
+	/// <summary>
+	/// Get the OrgInfo.json properties for deploying the Cisco Secure Client on user devices in the organization. The Cisco Secure Client with the Internet Security module requires the OrgInfo.json properties
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/deployments/v2/roamingcomputers/orginfo")]
+	Task<OrgInfo> GetOrgInfoAsync(CancellationToken cancellationToken = default);
 }
