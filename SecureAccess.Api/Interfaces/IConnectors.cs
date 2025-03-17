@@ -15,12 +15,13 @@ public interface IConnectors
 	/// <param name="sortOrder">Specify a field in the response to order the collection. example = "desc", default = "asc", enum = ["asc", "desc"]</param>
 	/// <returns></returns>
 	[Get("/connectorAgents")]
-	Task<PagedResponse<Connector>> ListConnectors(
+	Task<PagedResponse<Connector>> ListConnectorsAsync(
 	string? filters = null,
 	int? offset = null,
 	int? limit = null,
 	string? sortBy = null,
-	string? sortOrder = null);
+	string? sortOrder = null,
+	CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Get the details about a Connector
@@ -28,7 +29,9 @@ public interface IConnectors
 	/// <param name="id">The ID of the Connector.</param>
 	/// <returns></returns>
 	[Get("/connectorAgents/{id}")]
-	Task<Connector> GetConnector(long id);
+	Task<Connector> GetConnectorAsync(
+		long id,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Update the properties on the Connector
@@ -37,7 +40,10 @@ public interface IConnectors
 	/// <param name="patchOperations">Update the properties on the Connector</param>
 	/// <returns></returns>
 	[Patch("/connectorAgents/{id}")]
-	Task<Connector> PatchConnector(long id, [Body] List<PatchOperation> patchOperations);
+	Task<Connector> PatchConnectorAsync(
+		long id,
+		[Body] List<PatchOperation> patchOperations,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Remove the Connector from the Resource Connector Group in the organization
@@ -45,12 +51,12 @@ public interface IConnectors
 	/// <param name="id">The ID of the Connector</param>
 	/// <returns></returns>
 	[Delete("/connectorAgents/{id}")]
-	Task DeleteConnector(long id);
+	Task DeleteConnectorAsync(long id, CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Get the counts of the state information for the Connectors
 	/// </summary>
 	/// <returns></returns>
 	[Get("/connectorAgents/counts")]
-	Task<ConnectorCountsResponse> GetConnectorCounts();
+	Task<ConnectorCountsResponse> GetConnectorCountsAsync(CancellationToken cancellationToken = default);
 }
