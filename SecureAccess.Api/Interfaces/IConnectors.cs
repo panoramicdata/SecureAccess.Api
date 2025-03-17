@@ -22,23 +22,35 @@ public interface IConnectors
 	string? sortBy = null,
 	string? sortOrder = null);
 
-	//// Get Connector
-	//// GET /connectorAgents/{id}
-	//[Get("/connectorAgents/{id}")]
-	//Task<ConnectorResponse> GetConnector(int id);
+	/// <summary>
+	/// Get the details about a Connector
+	/// </summary>
+	/// <param name="id">The ID of the Connector.</param>
+	/// <returns></returns>
+	[Get("/connectorAgents/{id}")]
+	Task<Connector> GetConnector(long id);
 
-	//// Patch Connector
-	//// PATCH /connectorAgents/{id}
-	//[Patch("/connectorAgents/{id}")]
-	//Task<ConnectorResponse> PatchConnector(int id, [Body] List<PatchOperation> patchOperations);
+	/// <summary>
+	/// Update the properties on the Connector
+	/// </summary>
+	/// <param name="id">The ID of the Connector</param>
+	/// <param name="patchOperations">Update the properties on the Connector</param>
+	/// <returns></returns>
+	[Patch("/connectorAgents/{id}")]
+	Task<Connector> PatchConnector(long id, [Body] List<PatchOperation> patchOperations);
 
-	//// Delete Connector
-	//// DELETE /connectorAgents/{id}
-	//[Delete("/connectorAgents/{id}")]
-	//Task DeleteConnector(int id);
+	/// <summary>
+	/// Remove the Connector from the Resource Connector Group in the organization
+	/// </summary>
+	/// <param name="id">The ID of the Connector</param>
+	/// <returns></returns>
+	[Delete("/connectorAgents/{id}")]
+	Task DeleteConnector(long id);
 
-	//// Get Counts for Connectors
-	//// GET /connectorAgents/counts
-	//[Get("/connectorAgents/counts")]
-	//Task<ConnectorCountsResponse> GetConnectorCounts();
+	/// <summary>
+	/// Get the counts of the state information for the Connectors
+	/// </summary>
+	/// <returns></returns>
+	[Get("/connectorAgents/counts")]
+	Task<ConnectorCountsResponse> GetConnectorCounts();
 }
