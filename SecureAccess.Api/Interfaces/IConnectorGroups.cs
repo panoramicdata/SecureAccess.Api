@@ -17,7 +17,7 @@ public interface IConnectorGroups
 	/// <param name="sortOrder">Specify a field in the response to order the collection</param>
 	/// <returns></returns>
 	[ApiOperationId("listConnectorGroups")]
-	[Get("/connectorGroups")]
+	[Get("/deployments/v2/connectorGroups")]
 	Task<PagedResponse<ConnectorGroup>> ListConnectorGroupsAsync(
 		[Query] bool? includeProvisioningKey,
 		[Query] string? filters,
@@ -32,7 +32,7 @@ public interface IConnectorGroups
 	/// </summary>
 	/// <param name="connectorGroup">Create the Connector Group object</param>
 	/// <returns></returns>
-	[Post("/connectorGroups")]
+	[Post("/deployments/v2/connectorGroups")]
 	Task<ConnectorGroup> CreateConnectorGroupAsync(
 		[Body] ConnectorGroupCreateUpdateRequest connectorGroup,
 		CancellationToken cancellationToken = default);
@@ -44,7 +44,7 @@ public interface IConnectorGroups
 	/// <param name="includeProvisioningKey">Specify whether to include the Connector Group's provisioning key in the response</param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
-	[Get("/connectorGroups/{id}")]
+	[Get("/deployments/v2/connectorGroups/{id}")]
 	Task<ConnectorGroup> GetConnectorGroupAsync(
 		long id,
 		bool? includeProvisioningKey = false,
@@ -56,7 +56,7 @@ public interface IConnectorGroups
 	/// <param name="id">The ID of the Connector Group</param>
 	/// <param name="connectorGroup">Set the properties on the Resource Connector Group.</param>
 	/// <returns></returns>
-	[Put("/connectorGroups/{id}")]
+	[Put("/deployments/v2/connectorGroups/{id}")]
 	Task<ConnectorGroup> UpdateConnectorGroupAsync(
 		long id,
 		[Body] ConnectorGroupCreateUpdateRequest connectorGroup,
@@ -68,7 +68,7 @@ public interface IConnectorGroups
 	/// <param name="id">The ID of the Connector Group</param>
 	/// <param name="patchOperations">The Resource Connector Group property. You can set these properties on the Connector Group: name, confirmedAgentsEnabled, provisioningKey, forwardDNS, and resourceIds. enum = ["/name", "/confirmedAgentsEnabled", "/provisioningKey", "/resourceIds", "/forwardDNS"]</param>
 	/// <returns></returns>
-	[Patch("/connectorGroups/{id}")]
+	[Patch("/deployments/v2/connectorGroups/{id}")]
 	Task<ConnectorGroup> PatchConnectorGroupAsync(
 		long id,
 		[Body] List<PatchOperation> patchOperations,
@@ -79,7 +79,7 @@ public interface IConnectorGroups
 	/// </summary>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	[Delete("/connectorGroups/{id}")]
+	[Delete("/deployments/v2/connectorGroups/{id}")]
 	Task DeleteConnectorGroupAsync(
 		long id,
 		CancellationToken cancellationToken = default);
@@ -88,6 +88,6 @@ public interface IConnectorGroups
 	/// Get the counts of the state information for the Resource Connector Groups
 	/// </summary>
 	/// <returns></returns>
-	[Get("/connectorGroups/counts")]
+	[Get("/deployments/v2/connectorGroups/counts")]
 	Task<ConnectorGroupCountsResponse> GetConnectorGroupCountsAsync(CancellationToken cancellationToken = default);
 }
