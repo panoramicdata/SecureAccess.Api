@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Refit;
+﻿using Refit;
 using SecureAccess.Api.Sections;
 
 namespace SecureAccess.Api;
@@ -13,8 +12,7 @@ public partial class SecureAccessClient
 
 	public SecureAccessClient(
 		SecureAccessClientOptions clientOptions,
-		HttpClient httpClient,
-		ILogger<SecureAccessClient> logger
+		HttpClient httpClient
 		)
 	{
 		_httpClient = httpClient;
