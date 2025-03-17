@@ -27,24 +27,67 @@ public interface IConnectorGroups
 		[Query] string? sortOrder,
 		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Create a Resource Connector Group in the organization
+	/// </summary>
+	/// <param name="connectorGroup">Create the Connector Group object</param>
+	/// <returns></returns>
 	[Post("/connectorGroups")]
-	Task<ConnectorGroup> CreateConnectorGroupAsync([Body] ConnectorGroupCreateUpdateRequest connectorGroup);
+	Task<ConnectorGroup> CreateConnectorGroupAsync(
+		[Body] ConnectorGroupCreateUpdateRequest connectorGroup,
+		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Get the details about a Resource Connector Group
+	/// </summary>
+	/// <param name="id">The ID of the Connector Group</param>
+	/// <param name="includeProvisioningKey">Specify whether to include the Connector Group's provisioning key in the response</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/connectorGroups/{id}")]
 	Task<ConnectorGroup> GetConnectorGroupAsync(
 		long id,
-		bool includeProvisioningKey = false,
+		bool? includeProvisioningKey = false,
 		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Update the name and location properties on the Resource Connector Group
+	/// </summary>
+	/// <param name="id">The ID of the Connector Group</param>
+	/// <param name="connectorGroup">Set the properties on the Resource Connector Group.</param>
+	/// <returns></returns>
 	[Put("/connectorGroups/{id}")]
-	Task<ConnectorGroup> UpdateConnectorGroupAsync(long id, [Body] ConnectorGroupCreateUpdateRequest connectorGroup);
+	Task<ConnectorGroup> UpdateConnectorGroupAsync(
+		long id,
+		[Body] ConnectorGroupCreateUpdateRequest connectorGroup,
+		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Update the name or location properties on the Resource Connector Group, or refresh the Resource Connector Group's provisioning key
+	/// </summary>
+	/// <param name="id">The ID of the Connector Group</param>
+	/// <param name="patchOperations">The Resource Connector Group property. You can set these properties on the Connector Group: name, confirmedAgentsEnabled, provisioningKey, forwardDNS, and resourceIds. enum = ["/name", "/confirmedAgentsEnabled", "/provisioningKey", "/resourceIds", "/forwardDNS"]</param>
+	/// <returns></returns>
 	[Patch("/connectorGroups/{id}")]
-	Task<ConnectorGroup> PatchConnectorGroup(long id, [Body] List<PatchOperation> patchOperations);
+	Task<ConnectorGroup> PatchConnectorGroupAsync(
+		long id,
+		[Body] List<PatchOperation> patchOperations,
+		CancellationToken cancellationToken = default);
 
+	/// <summary>
+	/// Delete the Resource Connector Group, including the Connectors in the Resource Connector Group
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
 	[Delete("/connectorGroups/{id}")]
-	Task DeleteConnectorGroup(long id);
+	Task DeleteConnectorGroupAsync(
+		long id,
+		CancellationToken cancellationToken = default);
 
-	//[Get("/connectorGroups/counts")]
-	//Task<ConnectorGroupCountsResponse> GetConnectorGroupCounts();
+	/// <summary>
+	/// Get the counts of the state information for the Resource Connector Groups
+	/// </summary>
+	/// <returns></returns>
+	[Get("/connectorGroups/counts")]
+	Task<ConnectorGroupCountsResponse> GetConnectorGroupCountsAsync(CancellationToken cancellationToken = default);
 }
