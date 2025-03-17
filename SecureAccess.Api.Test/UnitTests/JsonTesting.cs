@@ -112,7 +112,7 @@ public class JsonTesting : IDisposable
 	{
 		using var httpClient = new HttpClient();
 		var clientOptions = new SecureAccessClientOptions { ApiUrl = _server.Urls[0] };
-		var client = new SecureAccessClient(clientOptions, httpClient, _logger);
+		var client = new SecureAccessClient(clientOptions, httpClient);
 		var result = await client.Deployments.NetworkTunnelGroups.ListNetworkTunnelGroupsAsync(filters: null, offset: 1, limit: 10, sortBy: null, sortOrder: null, includeStatuses: null);
 		_ = await Verify(result);
 	}

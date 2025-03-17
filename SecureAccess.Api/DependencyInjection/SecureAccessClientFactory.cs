@@ -27,7 +27,7 @@ public class SecureAccessClientFactory(
 		var logger = _loggerFactory.CreateLogger<SecureAccessClient>();
 		var httpClient = GetHttpClientWithAuthAndRetryPolicy(options, oauthService, logger);
 
-		return new SecureAccessClient(options, httpClient, logger);
+		return new SecureAccessClient(options, httpClient);
 	}
 
 	private static HttpClient GetHttpClientWithAuthAndRetryPolicy(SecureAccessClientOptions options, OAuth2Service oauthService, ILogger<SecureAccessClient> logger)
