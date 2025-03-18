@@ -8,4 +8,6 @@ public partial class DeploymentsSection
 	public IConnectorGroups ConnectorGroups { get; set; } = null!;
 
 	public IRoamingComputers RoamingComputers { get; set; } = null!;
+
+	public ISwgDeviceSettings SwgDeviceSettings { get; set; } = null!;
 }
