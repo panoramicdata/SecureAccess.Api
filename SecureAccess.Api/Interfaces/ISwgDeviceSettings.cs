@@ -14,7 +14,8 @@ public interface ISwgDeviceSettings
 	/// <returns>A <see cref="RegisteredSWGDeviceSettings"/> response detailing the outcome per device.</returns>
 	[Post("/deployments/v2/deviceSettings/SWGEnabled/set")]
 	Task<RegisteredSWGDeviceSettings> CreateSecureWebGatewayDeviceSettingsAsync(
-		[Body] SWGDeviceSettingsSetRequest request);
+		[Body] SWGDeviceSettingsSetRequest request,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// List the Secure Web Gateway (SWG) override settings for devices in the organization.
@@ -23,7 +24,8 @@ public interface ISwgDeviceSettings
 	/// <returns>The list of Secure Web Gateway (SWG) settings for the devices in the organization.</returns>
 	[Post("/deployments/v2/deviceSettings/SWGEnabled/list")]
 	Task<List<SWGDeviceSettingsListItem>> ListSecureWebGatewayDeviceSettingsAsync(
-		[Body] List<string> originIds);
+		[Body] List<string> originIds,
+		CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Remove the Secure Web Gateway (SWG) override setting for the devices in the organization.
@@ -33,5 +35,6 @@ public interface ISwgDeviceSettings
 	/// <returns>A <see cref="SWGDeviceSettingsRemoveResponse"/> containing a status message.</returns>
 	[Post("/deployments/v2/deviceSettings/SWGEnabled/remove")]
 	Task<SWGDeviceSettingsRemoveResponse> DeleteSecureWebGatewayDeviceSettingsAsync(
-		[Body] SWGDeviceSettingsRemoveRequest request);
+		[Body] SWGDeviceSettingsRemoveRequest request,
+		CancellationToken cancellationToken = default);
 }
