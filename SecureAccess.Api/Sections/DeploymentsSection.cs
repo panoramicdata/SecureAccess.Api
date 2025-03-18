@@ -12,4 +12,6 @@ public partial class DeploymentsSection
 	public ISwgDeviceSettings SwgDeviceSettings { get; set; } = null!;
 
 	public IInternalDomains InternalDomains { get; set; } = null!;
+
+	public ISites Sites { get; set; } = null!;
 }
