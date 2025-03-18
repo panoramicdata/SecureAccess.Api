@@ -14,4 +14,6 @@ public partial class DeploymentsSection
 	public IInternalDomains InternalDomains { get; set; } = null!;
 
 	public ISites Sites { get; set; } = null!;
+
+	public IInternalNetworks InternalNetworks { get; set; } = null!;
 }

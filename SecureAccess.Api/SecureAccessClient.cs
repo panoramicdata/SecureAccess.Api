@@ -29,7 +29,8 @@ public partial class SecureAccessClient
 			RoamingComputers = RefitFor(Deployments.RoamingComputers),
 			SwgDeviceSettings = RefitFor(Deployments.SwgDeviceSettings),
 			InternalDomains = RefitFor(Deployments.InternalDomains),
-			Sites = RefitFor(Deployments.Sites)
+			Sites = RefitFor(Deployments.Sites),
+			InternalNetworks = RefitFor(Deployments.InternalNetworks)
 		};
 	}
 
