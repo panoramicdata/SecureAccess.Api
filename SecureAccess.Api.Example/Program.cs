@@ -16,10 +16,10 @@ class Program
 	{
 		// Build a generic host that reads configuration from appsettings.json
 		using var host = Host.CreateDefaultBuilder(args)
-			.ConfigureAppConfiguration((hostingContext, config) =>
+			.ConfigureAppConfiguration((_, config) =>
 				// Ensure appsettings.json is loaded
 				config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true))
-			.ConfigureServices((context, services) =>
+			.ConfigureServices(services =>
 				// Register your SecureAccess API services (DI for IHttpClientFactory, logging, and your factory)
 				_ = services.AddSecureAccessApi())
 			.ConfigureLogging(logging =>
