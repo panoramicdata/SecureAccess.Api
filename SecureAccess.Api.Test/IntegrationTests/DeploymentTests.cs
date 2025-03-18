@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Refit;
 using SecureAccess.Api.Data;
 using SecureAccess.Api.Extensions;
 using Xunit.Abstractions;
@@ -15,11 +14,10 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 		var response = await TestSecureAccessClient
 			.Deployments
 			.RoamingComputers
-			.ListRoamingComputers();
+			.ListRoamingComputersAsync();
 
 		// Assert
-		_ = response.IsSuccessStatusCode.Should().BeTrue();
-		_ = response.Content.Should().NotBeNull();
+		_ = response.Should().NotBeNull();
 	}
 
 	[Fact]
@@ -27,7 +25,7 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 	{
 		// Arrange
 		const int maxAttempts = 10;
-		ApiResponse<List<RoamingComputer>>? response;
+		List<RoamingComputer>? response;
 
 		// Act
 		for (var attempt = 1; attempt <= maxAttempts; attempt++)
@@ -35,11 +33,11 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 			response = await TestSecureAccessClient
 				.Deployments
 				.RoamingComputers
-				.ListRoamingComputers();
+				.ListRoamingComputersAsync();
 
 			// although rate-limiting will occur, all requests should eventually succeed
 			// Assert
-			_ = response.IsSuccessStatusCode.Should().BeTrue();
+			_ = response.Should().NotBeNull();
 		}
 	}
 

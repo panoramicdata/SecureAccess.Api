@@ -16,7 +16,7 @@ public interface IRoamingComputers
 	/// <returns>List of roaming computers.</returns>
 	[ApiOperationId("listRoamingComputers")]
 	[Get("/deployments/v2/roamingcomputers")]
-	Task<PagedResponse<RoamingComputer>> ListRoamingComputersAsync(
+	Task<List<RoamingComputer>> ListRoamingComputersAsync(
 		string? name = null,
 		string? status = null,
 		string? swgStatus = null,
