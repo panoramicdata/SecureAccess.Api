@@ -10,4 +10,6 @@ public partial class DeploymentsSection
 	public IRoamingComputers RoamingComputers { get; set; } = null!;
 
 	public ISwgDeviceSettings SwgDeviceSettings { get; set; } = null!;
+
+	public IInternalDomains InternalDomains { get; set; } = null!;
 }

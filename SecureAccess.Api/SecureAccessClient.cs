@@ -27,7 +27,8 @@ public partial class SecureAccessClient
 			NetworkTunnelGroups = RefitFor(Deployments.NetworkTunnelGroups),
 			ConnectorGroups = RefitFor(Deployments.ConnectorGroups),
 			RoamingComputers = RefitFor(Deployments.RoamingComputers),
-			SwgDeviceSettings = RefitFor(Deployments.SwgDeviceSettings)
+			SwgDeviceSettings = RefitFor(Deployments.SwgDeviceSettings),
+			InternalDomains = RefitFor(Deployments.InternalDomains)
 		};
 	}
 
