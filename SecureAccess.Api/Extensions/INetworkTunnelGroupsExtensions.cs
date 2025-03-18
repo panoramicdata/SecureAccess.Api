@@ -17,7 +17,7 @@ public static class INetworkTunnelGroupsExtensions
 	/// <param name="includeStatuses">Specify whether to include the IPsec tunnel status fields (status and tunnelsStatus) for each hub. example = true, default = false</param>
 	/// <returns></returns>
 	[ApiOperationId("listNetworkTunnelGroups")]
-	[Get("/networktunnelgroups")]
+	[Get("/deployments/v2/networktunnelgroups")]
 	public static Task<List<NetworkTunnelGroup>> ListNetworkTunnelGroupsAllAsync(
 		this INetworkTunnelGroups networkTunnelGroups,
 		string? filters = null,
