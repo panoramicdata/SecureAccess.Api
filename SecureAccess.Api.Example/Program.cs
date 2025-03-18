@@ -67,7 +67,7 @@ class Program
 	{
 		logger.LogInformation("{OperationName} - Call {CallCount}: Making API call...", operationName, callCount);
 
-		var response = await client.Deployments.RoamingComputers.ListRoamingComputers();
+		var response = await client.Deployments.RoamingComputers.ListRoamingComputersAsync();
 
 		if (response.IsSuccessStatusCode)
 		{
