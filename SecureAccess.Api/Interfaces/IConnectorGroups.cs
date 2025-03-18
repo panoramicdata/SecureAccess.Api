@@ -19,12 +19,12 @@ public interface IConnectorGroups
 	[ApiOperationId("listConnectorGroups")]
 	[Get("/deployments/v2/connectorGroups")]
 	Task<PagedResponse<ConnectorGroup>> ListConnectorGroupsAsync(
-		[Query] bool? includeProvisioningKey,
-		[Query] string? filters,
-		[Query] int? offset,
-		[Query] int? limit,
-		[Query] string? sortBy,
-		[Query] string? sortOrder,
+		bool? includeProvisioningKey = null,
+		string? filters = null,
+		int? offset = null,
+		int? limit = null,
+		string? sortBy = null,
+		string? sortOrder = null,
 		CancellationToken cancellationToken = default);
 
 	/// <summary>

@@ -75,4 +75,36 @@ public class DeploymentTests(ITestOutputHelper testOutputHelper) : IntegrationTe
 		_ = response.Should().NotBeNullOrEmpty();
 		_ = response.Count.Should().BeGreaterThan(0);
 	}
+
+	[Fact]
+	public async Task ListConnectorGroups_ReturnsPagedResponse()
+	{
+		// Arrange
+		// Act
+		var response = await TestSecureAccessClient
+			.Deployments
+			.ConnectorGroups
+			.ListConnectorGroupsAsync();
+		// Assert
+		_ = response.Should().NotBeNull();
+		_ = response.Should().BeOfType<PagedResponse<ConnectorGroup>>();
+		_ = response.Data.Should().NotBeNullOrEmpty();
+		_ = response.Total.Should().BeGreaterThan(0);
+	}
+
+	[Fact]
+	public async Task ListConnectorGroupsAll_ReturnsListOfConnectorGroups()
+	{
+		// Arrange
+		// Act
+		var response = await TestSecureAccessClient
+			.Deployments
+			.ConnectorGroups
+			.ListConnectorGroupsAllAsync();
+		// Assert
+		_ = response.Should().NotBeNull();
+		_ = response.Should().BeOfType<List<ConnectorGroup>>();
+		_ = response.Should().NotBeNullOrEmpty();
+		_ = response.Count.Should().BeGreaterThan(0);
+	}
 }
