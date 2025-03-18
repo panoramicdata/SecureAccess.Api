@@ -56,13 +56,13 @@ public class SecureAccessClientFactory(
 			.OrResult(msg => msg.StatusCode == (HttpStatusCode)HttpStatusCode_TooManyRequests)
 			.WaitAndRetryAsync(
 				retryCount: 2,
-		sleepDurationProvider: (retryAttemptCount, outcome, context)
+		sleepDurationProvider: (retryAttemptCount, outcome, _)
 			=> outcome.Result != null &&
 					outcome.Result.Headers.TryGetValues("Retry-After", out var values) &&
 					int.TryParse(values.FirstOrDefault(), out var seconds)
 					? TimeSpan.FromSeconds(seconds)
 					: TimeSpan.FromSeconds(Math.Pow(2, retryAttemptCount)),
-		onRetryAsync: (outcome, timespan, retryAttemptCount, context)
+		onRetryAsync: (outcome, timespan, retryAttemptCount, _)
 			=>
 		{
 			logger.LogWarning("Request failed with {StatusCode} on attempt {RetryAttemptCount}. Retrying after {DelaySeconds} seconds.",
