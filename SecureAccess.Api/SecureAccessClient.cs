@@ -9,6 +9,7 @@ public partial class SecureAccessClient
 	private readonly RefitSettings _refitSettings;
 
 	public DeploymentsSection Deployments { get; } = new();
+	public PoliciesSection Policies { get; } = new();
 
 	public SecureAccessClient(
 		SecureAccessClientOptions clientOptions,
@@ -31,6 +32,11 @@ public partial class SecureAccessClient
 			InternalDomains = RefitFor(Deployments.InternalDomains),
 			Sites = RefitFor(Deployments.Sites),
 			InternalNetworks = RefitFor(Deployments.InternalNetworks)
+		};
+
+		Policies = new PoliciesSection
+		{
+			DestinationLists = RefitFor(Policies.DestinationLists)
 		};
 	}
 
