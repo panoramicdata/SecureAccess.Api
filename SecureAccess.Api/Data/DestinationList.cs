@@ -40,7 +40,7 @@ public class DestinationList
 	/// Third party category ID.
 	/// </summary>
 	[ApiAccess(ApiAccess.Read)]
-	public long ThirdpartyCategoryId { get; set; }
+	public long? ThirdpartyCategoryId { get; set; }
 	/// <summary>
 	/// The date and time when the destination list was created (as Unix epoch).
 	/// </summary>

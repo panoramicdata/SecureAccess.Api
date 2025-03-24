@@ -16,7 +16,7 @@ public interface IDestinationLists
 	/// <param name="limit">The number of records per page (default is 100).</param>
 	/// <returns>A paginated response containing destination lists.</returns>
 	[Get("/policies/v2/destinationlists")]
-	Task<PaginatedResponse<DestinationList>> GetDestinationListsAsync(
+	Task<PagedResponseWithMeta<DestinationList>> GetDestinationListsAsync(
 		int? page = null,
 		int? limit = null,
 		CancellationToken cancellationToken = default);

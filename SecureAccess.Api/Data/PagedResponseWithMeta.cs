@@ -1,6 +1,6 @@
 ﻿namespace SecureAccess.Api.Data;
 
-public class PaginatedResponse<T>
+public class PagedResponseWithMeta<T>
 {
 	/// <summary>
 	/// The data returned in the response
